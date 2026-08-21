@@ -14,6 +14,7 @@ return [
     'app_key' => 'secrets_app_key',
 
     // Sel interne pour anonymiser les IP dans les logs
+    // php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"
     'log_salt' => 'secrets_log_salt',
 
     // TTL par défaut en minutes
