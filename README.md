@@ -30,6 +30,12 @@ Security
 
 Secrets are encrypted before storage and remain inaccessible without the server encryption key. Expired or exhausted links are automatically destroyed to minimize data exposure.  
 
+## Planned Features
+Setup wizard for easy deployment and database initialization  
+Customer branding and personalization  
+User authentication for create.php and admin.php  
+Automatic removal of expired tokens  
+
 ## Requirements
 PHP 8.1+  
 MySQL / MariaDB  
