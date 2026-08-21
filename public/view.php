@@ -96,7 +96,7 @@ if ($token === '' || strlen($token) < 30) {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>SecretShare - Récupération des mots de passe sécurisée</title>
+    <title>SecureShare - Récupération de votre mot de passe sécurisé</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
@@ -155,22 +155,43 @@ if ($token === '' || strlen($token) < 30) {
             margin-bottom: 20px;
         }
 
-        .logo {
+        .logo-container img {
             max-width: 250px;
             max-height: 80px;
             width: auto;
             height: auto;
         }
+        .admin-btn {
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .admin-btn:hover {
+            background: #1f2937;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="card">
-    <div class="logo-container">
-        <?= e(getLogoUrl()) ?>        alt="Logo"
-            class="logo"
-        >
+    <div class="header-bar">
+        <div class="logo-container">
+            <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
+        </div>
     </div>
-    <h1>Secret partagé</h1>
+
+    <h1>Votre mot de passe</h1>
 
     <div class="instructions">
         <h3>Informations</h3>
@@ -186,7 +207,6 @@ if ($token === '' || strlen($token) < 30) {
         <p class="error"><?= e($error) ?></p>
         
     <?php elseif ($secret !== null): ?>
-        <p>Voici le mot de passe. Il ne sera plus disponible après expiration du lien.</p>
         <div class="secret"><?= e($secret) ?></div>
     <?php endif; ?>
 </div>

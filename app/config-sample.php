@@ -1,8 +1,9 @@
 <?php
 
 return [
+    // Paramètre de la base de données
     'db_host' => 'localhost',
-    'db_name' => 'secrets',
+    'db_name' => 'secrets_db',
     'db_user' => 'secrets_user',
     'db_pass' => 'secrets_password',
 

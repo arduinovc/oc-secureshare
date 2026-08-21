@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ticket = trim($_POST['ticket'] ?? '');
 
     $ttlMinutes = (int)($_POST['ttl_minutes'] ?? $config['default_ttl_minutes']);
-    $maxViews = (int)($_POST['max_views'] ?? 1);
+    $maxViews = (int)($_POST['max_views'] ?? 3);
 
     if ($secret === '') {
         $error = 'Le mot de passe est obligatoire.';
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>SecretShare - Création d'un lien sécurisé pour partager vos mots de passe</title>
+    <title>SecureShare - Création d'un lien sécurisé pour partager vos mots de passe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
@@ -165,65 +165,197 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 20px;
         }
 
-        .logo {
+        .logo-container img {
             max-width: 250px;
             max-height: 80px;
             width: auto;
             height: auto;
         }
+
+        .install-button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 14px 40px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 8px rgba(0,0,0,0.15),
+                0 2px 0 rgba(0,0,0,0.20);
+
+            transition: all 0.15s ease;
+        }
+
+        .install-button:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .install-button:active {
+            transform: translateY(2px);
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-btn {
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .admin-btn:hover {
+            background: #1f2937;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
     </style>
 </head>
 <body>
 <div class="card">
-    <div class="logo-container">
-        <?= e(getLogoUrl()) ?>        alt="Logo"
-            class="logo"
-        >
+    <div class="header-bar">
+        <div class="logo-container">
+            <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
+        </div>
+        <div class="header-actions">
+            <a href="admin.php" class="admin-btn" target="_blank">Administration</a>
+        </div>
     </div>
-    <h1>Créer un lien secret</h1>
+    
+    <h1>Chiffrer un mot de passe</h1>
 
     <?php if ($error): ?>
         <div class="error"><?= e($error) ?></div>
     <?php endif; ?>
 
+
     <form method="post" autocomplete="off">
 
-    <div class="instructions">
-        <h3>Informations</h3>
+    <!-- <div class="instructions">
+            <h3>Informations</h3>
+            <ul>
+                <li>Ne transmettez le lien qu'au destinataire prévu.</li>
+            </ul>
+        </div> -->
 
-        <ul>
-            <li>Le secret est chiffré avant stockage.</li>
-            <li>Le lien expire automatiquement après la durée configurée (par défaut : 24 heures).</li>
-            <li>Le nombre maximal d'ouvertures peut être limité (par défaut : 3).</li>
-            <li>Une fois expiré ou consommé, le secret est définitivement supprimé.</li>
-            <li>Ne transmettez le lien qu'au destinataire prévu.</li>
-        </ul>
-    </div>
+        <label for="secret">Mot de passe</label>
+            <textarea id="secret" name="secret" rows="4" required autofocus></textarea>
 
-    <label for="secret">Mot de passe à transmettre</label>
-        <textarea id="secret" name="secret" rows="4" required></textarea>
+        <div class="form-grid">
 
-        <label for="label">Client, facultatif</label>
-        <input id="label" name="label" type="text" maxlength="255">
+            <div class="form-group">
+                <label for="label">Client (facultatif)</label>
+                <input id="label" name="label" type="text" maxlength="255">
+            </div>
 
-        <label for="ticket">Ticket, facultatif</label>
-        <input id="ticket" name="ticket" type="text" maxlength="100">
+            <div class="form-group">
+                <label for="ticket">Commentaire (facultatif)</label>
+                <input id="ticket" name="ticket" type="text" maxlength="100">
+            </div>
 
-        <label for="ttl_minutes">Expiration, en minutes</label>
-        <input id="ttl_minutes" name="ttl_minutes" type="number" min="1" max="10080" value="<?= e((string)$config['default_ttl_minutes']) ?>">
+            <div class="form-group">
+                <label for="ttl_minutes">Expiration (minutes)</label>
+                <input
+                    id="ttl_minutes"
+                    name="ttl_minutes"
+                    type="number"
+                    min="1"
+                    max="10080"
+                    value="<?= e((string)$config['default_ttl_minutes']) ?>">
+            </div>
 
-        <label for="max_views">Nombre maximum d’ouvertures</label>
-        <input id="max_views" name="max_views" type="number" min="1" max="20" value="1">
+            <div class="form-group">
+                <label for="max_views">Nb. ouvertures</label>
+                <input
+                    id="max_views"
+                    name="max_views"
+                    type="number"
+                    min="1"
+                    max="20"
+                    value="3">
+            </div>
 
-        <button type="submit">Générer le lien</button>
+        </div>
+
+        <button type="submit" class="install-button">Générer le lien</button>
     </form>
 
     <?php if ($generatedUrl): ?>
         <div class="success">
-            <strong>Lien généré :</strong><br>
-            <input type="text" value="<?= e($generatedUrl) ?>" readonly onclick="this.select()">
+
+            <strong>✅ Lien généré</strong>
+
+            <input
+                type="text"
+                id="secretLink"
+                value="<?= e($generatedUrl) ?>"
+                readonly
+            >
+
+            <button type="button" class="install-button" id="copyBtn">
+                📋 Copier le lien
+            </button>
+
         </div>
+
     <?php endif; ?>
 </div>
+
+<script>
+const btn = document.getElementById('copyBtn');
+
+if (btn) {
+
+    btn.addEventListener('click', async () => {
+
+        const input = document.getElementById('secretLink');
+
+        await navigator.clipboard.writeText(input.value);
+
+        btn.innerText = '✅ Copié';
+    });
+
+}
+</script>
+
+
 </body>
 </html>

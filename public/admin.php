@@ -52,7 +52,7 @@ $links = $stmt->fetchAll();
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>SecretShare - Affichage de l'état des tokens.</title>
+    <title>SecureShare - Affichage de l'état des tokens.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
@@ -94,11 +94,11 @@ $links = $stmt->fetchAll();
             color: #64748b;
         }
         .logo-container {
-            text-align: center;
+            text-align: left;
             margin-bottom: 20px;
         }
 
-        .logo {
+        .logo-container img {
             max-width: 250px;
             max-height: 80px;
             width: auto;
@@ -108,11 +108,9 @@ $links = $stmt->fetchAll();
 </head>
 <body>
 <div class="logo-container">
-    <?= e(getLogoUrl()) ?>        alt="Logo"
-        class="logo"
-    >
+    <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
 </div>
-<h1>Admin liens secrets</h1>
+<h1>Etat des liens générés</h1>
 
 <table>
     <thead>

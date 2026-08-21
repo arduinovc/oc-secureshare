@@ -146,7 +146,7 @@ PHP;
 <html>
 <head>
     <meta charset="utf-8">
-    <title>SecretShare - Installation et initialisation de la base de données</title>
+    <title>SecureShare - Installation et initialisation de la base de données</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  class="container py-5">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
     <style>
@@ -204,42 +204,112 @@ PHP;
             margin-bottom: 20px;
         }
 
-        .logo {
-            max-width: 250px;
-            max-height: 80px;
+        .logo-container img {
+            max-width: 450px;
+            max-height: 180px;
             width: auto;
             height: auto;
         }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .form-row label {
+            width: 180px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .form-row input {
+            flex: 1;
+        }
+        .install-button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 14px 40px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 8px rgba(0,0,0,0.15),
+                0 2px 0 rgba(0,0,0,0.20);
+
+            transition: all 0.15s ease;
+        }
+
+        .install-button:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .install-button:active {
+            transform: translateY(2px);
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .error-box {
+            background: #fef2f2;
+            border: 2px solid #dc2626;
+            border-left: 6px solid #dc2626;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .error-box .title {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .success-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-left: 6px solid #10b981;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
     </style>
 </head>
 <body>
 <div class="card">
 <div class="logo-container">
-    <img src="assets/logo-default.png" alt="SecureShare" />
+    <img src="assets/banner-setup.png" alt="SecureShare" />
 </div>
 
 <h1>Installation OC-SecureShare</h1>
 
 <?php if($success): ?>
 
-<div class="alert alert-success">
-    Installation terminée.
-</div>
-
-<div class="alert alert-warning">
+<div class="success-box">
+    ✅ Installation terminée avec succès.
     Supprimez maintenant setup.php du serveur.
 </div>
 
 <?php else: ?>
 
-<?php if($error): ?>
-<div class="alert alert-danger">
+<?php if ($error): ?>
+<div class="error-box">
+    <div class="title">❌ Erreur d'installation</div>
     <?= htmlspecialchars($error) ?>
 </div>
 <?php endif; ?>
 
 
-<form method="post" autocomplete="off">
+<form method="post" enctype="multipart/form-data" autocomplete="off">
 <div class="instructions">
     <h3>Informations</h3>
 
@@ -247,39 +317,36 @@ PHP;
         <li>Vous devez disposer de PHP8.1+.</li>
         <li>Vous devez disposer des identifiants de votre base de données MySQL ou MariaDB.</li>
         <li>N'exposez jamais le fichier app/config.php qui contient la clé de chiffrement.</li>
+        <li>Le logo doit être au format .png.</li>
     </ul>
 </div>
 
-
-
-<form method="post" enctype="multipart/form-data">
-
-    <div class="mb-3">
+    <div class="form-row">
         <label>Serveur MySQL</label>
-        <input type="text" name="db_host" class="form-control" value="localhost">
+        <input type="text" name="db_host" value="localhost">
     </div>
 
-    <div class="mb-3">
+    <div class="form-row">
         <label>Base</label>
-        <input type="text" name="db_name" class="form-control">
+        <input type="text" name="db_name">
     </div>
 
-    <div class="mb-3">
+    <div class="form-row">
         <label>Utilisateur</label>
-        <input type="text" name="db_user" class="form-control">
+        <input type="text" name="db_user">
     </div>
 
-    <div class="mb-3">
+    <div class="form-row">
         <label>Mot de passe</label>
-        <input type="password" name="db_pass" class="form-control">
+        <input type="password" name="db_pass">
     </div>
 
-    <div class="mb-3">
-        <label for="logo">Logo (PNG ou JPG, facultatif)</label>
-        <input type="file" id="logo" name="logo" accept=".png,.jpg,.jpeg">
+    <div class="form-row">
+        <label>Logo</label>
+        <input type="file" id="logo" name="logo" accept=".png">
     </div>
 
-    <button class="btn btn-primary">
+    <button type="submit" class="install-button">
         Installer
     </button>
 
