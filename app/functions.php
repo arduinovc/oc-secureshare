@@ -1,12 +1,11 @@
-function getLogoUrl(array $config): string
+<?php
+
+function getLogoUrl(): string
 {
-    if (!empty($config['logo'])) {
+    $custom = __DIR__ . '/../public/assets/logo.png';
 
-        $file = __DIR__ . '/../public/assets/' . $config['logo'];
-
-        if (file_exists($file)) {
-            return 'assets/' . $config['logo'];
-        }
+    if (file_exists($custom)) {
+        return 'assets/logo.png';
     }
 
     return 'assets/logo-default.png';

@@ -8,7 +8,7 @@ $config = require __DIR__ . '/../app/config.php';
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/crypto.php';
 require __DIR__ . '/../app/helpers.php';
-require_once __DIR__ . '/../app/functions.php';
+require __DIR__ . '/../app/functions.php';
 
 $token = $_GET['t'] ?? '';
 $secret = null;

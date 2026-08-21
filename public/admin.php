@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 $config = require __DIR__ . '/../app/config.php';
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/helpers.php';
-require_once __DIR__ . '/../app/functions.php';
+require __DIR__ . '/../app/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int)($_POST['id'] ?? 0);

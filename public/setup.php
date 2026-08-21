@@ -2,7 +2,7 @@
 
 $lockFile = __DIR__ . '/../app/installed.lock';
 $configFile = __DIR__ . '/../app/config.php';
-//require_once __DIR__ . '/../app/functions.php';
+
 
 if (file_exists($lockFile)) {
     //die('Application déjà installée.');
@@ -111,9 +111,6 @@ return [
     //Default TTL (1 day)
     'default_ttl_minutes' => 1440,
 
-    //Customize
-    'logo' => 'logo.png',
-
 ];
 PHP;
 
@@ -220,6 +217,7 @@ PHP;
 <div class="logo-container">
     <img src="assets/logo-default.png" alt="SecureShare" />
 </div>
+
 <h1>Installation OC-SecureShare</h1>
 
 <?php if($success): ?>
