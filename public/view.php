@@ -95,8 +95,9 @@ if ($token === '' || strlen($token) < 30) {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Secret partagé</title>
+    <title>SecretShare - Récupération des mots de passe sécurisée</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
     <style>
         body {
@@ -127,11 +128,43 @@ if ($token === '' || strlen($token) < 30) {
         .error {
             color: #b91c1c;
         }
+
+        .instructions {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-left: 5px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .instructions ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
     </style>
 </head>
 <body>
 <div class="card">
     <h1>Secret partagé</h1>
+
+    <div class="instructions">
+        <h3>Informations</h3>
+
+        <ul>
+            <li>Ce service est destiné au partage sécurisé de mots de passe et informations sensibles.</li>
+            <li>Le mot de passe sera définitivement supprimée de la base de données.</li>
+            <li>Le lien expire automatiquement après trois ouvertures ou 24 heures.</li>
+        </ul>
+    </div>
 
     <?php if ($error): ?>
         <p class="error"><?= e($error) ?></p>

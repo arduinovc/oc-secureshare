@@ -78,8 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Créer un lien secret</title>
+    <title>SecretShare - Création d'un lien sécurisé pour partager vos mots de passe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
     <style>
         body {
@@ -135,6 +136,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 20px;
             word-break: break-all;
         }
+
+
+        .instructions {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-left: 5px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .instructions ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
     </style>
 </head>
 <body>
@@ -146,7 +170,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="post" autocomplete="off">
-        <label for="secret">Mot de passe à transmettre</label>
+
+    <div class="instructions">
+        <h3>Informations</h3>
+
+        <ul>
+            <li>Le secret est chiffré avant stockage.</li>
+            <li>Le lien expire automatiquement après la durée configurée (par défaut : 24 heures).</li>
+            <li>Le nombre maximal d'ouvertures peut être limité (par défaut : 3).</li>
+            <li>Une fois expiré ou consommé, le secret est définitivement supprimé.</li>
+            <li>Ne transmettez le lien qu'au destinataire prévu.</li>
+        </ul>
+    </div>
+
+    <label for="secret">Mot de passe à transmettre</label>
         <textarea id="secret" name="secret" rows="4" required></textarea>
 
         <label for="label">Client, facultatif</label>

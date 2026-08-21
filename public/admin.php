@@ -51,8 +51,9 @@ $links = $stmt->fetchAll();
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Admin liens secrets</title>
+    <title>SecretShare - Affichage de l'état des tokens.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
 
     <style>
         body {

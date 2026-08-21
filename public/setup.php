@@ -4,8 +4,11 @@ $lockFile = __DIR__ . '/../app/installed.lock';
 $configFile = __DIR__ . '/../app/config.php';
 
 if (file_exists($lockFile)) {
-    die('Application déjà installée.');
+    //die('Application déjà installée.');
+    header('Location: create.php');
+    exit;
 }
+
 
 $error = '';
 $success = false;
@@ -129,8 +132,63 @@ PHP;
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Installation</title>
+    <title>SecretShare - Installation et initialisation de la base de données</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  class="container py-5">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 16px;
+            background: #f7f7f7;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .secret {
+            font-family: monospace;
+            font-size: 1.2rem;
+            background: #111827;
+            color: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            word-break: break-all;
+        }
+
+        .error {
+            color: #b91c1c;
+        }
+
+        .instructions {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-left: 5px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .instructions ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
 
 <h1>Installation OC-SecureShare</h1>
 
@@ -151,6 +209,20 @@ PHP;
     <?= htmlspecialchars($error) ?>
 </div>
 <?php endif; ?>
+
+
+<form method="post" autocomplete="off">
+<div class="instructions">
+    <h3>Informations</h3>
+
+    <ul>
+        <li>Vous devez disposer de PHP8.1+.</li>
+        <li>Vous devez disposer des identifiants de votre base de données MySQL ou MariaDB.</li>
+        <li>N'exposez jamais le fichier app/config.php qui contient la clé de chiffrement.</li>
+    </ul>
+</div>
+
+
 
 <form method="post">
 
@@ -181,6 +253,7 @@ PHP;
 </form>
 
 <?php endif; ?>
+</div>
 
 </body>
 </html>
