@@ -8,6 +8,7 @@ $config = require __DIR__ . '/../app/config.php';
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/crypto.php';
 require __DIR__ . '/../app/helpers.php';
+require_once __DIR__ . '/../app/functions.php';
 
 $token = $_GET['t'] ?? '';
 $secret = null;
@@ -149,11 +150,26 @@ if ($token === '' || strlen($token) < 30) {
             margin: 0;
             padding-left: 18px;
         }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
+        .logo {
+            max-width: 250px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+        }
     </style>
 </head>
 <body>
 <div class="card">
+    <div class="logo-container">
+        <?= e(getLogoUrl()) ?>        alt="Logo"
+            class="logo"
+        >
+    </div>
     <h1>Secret partagé</h1>
 
     <div class="instructions">

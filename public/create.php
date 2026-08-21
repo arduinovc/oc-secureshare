@@ -8,6 +8,7 @@ $config = require __DIR__ . '/../app/config.php';
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/crypto.php';
 require __DIR__ . '/../app/helpers.php';
+require_once __DIR__ . '/../app/functions.php';
 
 $generatedUrl = null;
 $error = null;
@@ -158,11 +159,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             padding-left: 18px;
         }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
+        .logo {
+            max-width: 250px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+        }
     </style>
 </head>
 <body>
 <div class="card">
+    <div class="logo-container">
+        <?= e(getLogoUrl()) ?>        alt="Logo"
+            class="logo"
+        >
+    </div>
     <h1>Créer un lien secret</h1>
 
     <?php if ($error): ?>

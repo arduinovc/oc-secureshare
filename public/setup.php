@@ -2,6 +2,7 @@
 
 $lockFile = __DIR__ . '/../app/installed.lock';
 $configFile = __DIR__ . '/../app/config.php';
+//require_once __DIR__ . '/../app/functions.php';
 
 if (file_exists($lockFile)) {
     //die('Application déjà installée.');
@@ -110,11 +111,27 @@ return [
     //Default TTL (1 day)
     'default_ttl_minutes' => 1440,
 
+    //Customize
+    'logo' => 'logo.png',
+
 ];
 PHP;
 
         file_put_contents($configFile, $config);
 
+
+        $logoPath = __DIR__ . '/assets/logo.png';
+
+        if (
+            isset($_FILES['logo']) &&
+            $_FILES['logo']['error'] === UPLOAD_ERR_OK
+        ) {
+            move_uploaded_file(
+                $_FILES['logo']['tmp_name'],
+                $logoPath
+            );
+        }
+        
         file_put_contents(
             $lockFile,
             date('Y-m-d H:i:s')
@@ -185,11 +202,24 @@ PHP;
             margin: 0;
             padding-left: 18px;
         }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 250px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+        }
     </style>
 </head>
 <body>
 <div class="card">
-
+<div class="logo-container">
+    <img src="assets/logo-default.png" alt="SecureShare" />
+</div>
 <h1>Installation OC-SecureShare</h1>
 
 <?php if($success): ?>
@@ -224,7 +254,7 @@ PHP;
 
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
     <div class="mb-3">
         <label>Serveur MySQL</label>
@@ -244,6 +274,11 @@ PHP;
     <div class="mb-3">
         <label>Mot de passe</label>
         <input type="password" name="db_pass" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="logo">Logo (PNG ou JPG, facultatif)</label>
+        <input type="file" id="logo" name="logo" accept=".png,.jpg,.jpeg">
     </div>
 
     <button class="btn btn-primary">

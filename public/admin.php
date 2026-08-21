@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 $config = require __DIR__ . '/../app/config.php';
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/helpers.php';
+require_once __DIR__ . '/../app/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int)($_POST['id'] ?? 0);
@@ -92,9 +93,25 @@ $links = $stmt->fetchAll();
         .muted {
             color: #64748b;
         }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 250px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+        }
     </style>
 </head>
 <body>
+<div class="logo-container">
+    <?= e(getLogoUrl()) ?>        alt="Logo"
+        class="logo"
+    >
+</div>
 <h1>Admin liens secrets</h1>
 
 <table>
