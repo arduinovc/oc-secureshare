@@ -55,32 +55,11 @@ $links = $stmt->fetchAll();
     <title>SecureShare - Affichage de l'état des tokens.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
-
+    <link rel="stylesheet" href="assets/style.css">
     <style>
         body {
-            font-family: system-ui, Arial, sans-serif;
             max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 16px;
-            background: #f7f7f7;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background: #f1f5f9;
-        }
-
         button {
             padding: 6px 10px;
             border: 0;
@@ -89,80 +68,68 @@ $links = $stmt->fetchAll();
             color: white;
             cursor: pointer;
         }
-
-        .muted {
-            color: #64748b;
-        }
-        .logo-container {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .logo-container img {
-            max-width: 250px;
-            max-height: 80px;
-            width: auto;
-            height: auto;
-        }
-    </style>
+</style>
 </head>
 <body>
-<div class="logo-container">
-    <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
-    <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
-</div>
-<h1>Etat des liens générés</h1>
+<div class="card">
+    <div class="logo-container">
+        <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+        <div class="logo-separator"></div>
+        <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
+    </div>
+    <h1>Etat des liens générés</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Client</th>
-        <th>Ticket</th>
-        <th>Vues</th>
-        <th>Expiration</th>
-        <th>Créé le</th>
-        <th>Dernière ouverture</th>
-        <th>Statut</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($links as $link): ?>
-        <?php
-        $expired = new DateTimeImmutable($link['expires_at']) < new DateTimeImmutable();
-        $revoked = $link['revoked_at'] !== null;
-        ?>
+    <table>
+        <thead>
         <tr>
-            <td><?= e((string)$link['id']) ?></td>
-            <td><?= e($link['label']) ?></td>
-            <td><?= e($link['ticket']) ?></td>
-            <td><?= e($link['views'] . ' / ' . $link['max_views']) ?></td>
-            <td><?= e($link['expires_at']) ?></td>
-            <td><?= e($link['created_at']) ?></td>
-            <td><?= e($link['last_opened_at'] ?? '-') ?></td>
-            <td>
-                <?php if ($revoked): ?>
-                    Révoqué
-                <?php elseif ($expired): ?>
-                    Expiré
-                <?php else: ?>
-                    Actif
-                <?php endif; ?>
-            </td>
-            <td>
-                <?php if (!$revoked): ?>
-                    <form method="post">
-                        <input type="hidden" name="id" value="<?= e((string)$link['id']) ?>">
-                        <button type="submit">Expirer</button>
-                    </form>
-                <?php else: ?>
-                    <span class="muted">-</span>
-                <?php endif; ?>
-            </td>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Ticket</th>
+            <th>Vues</th>
+            <th>Expiration</th>
+            <th>Créé le</th>
+            <th>Dernière ouverture</th>
+            <th>Statut</th>
+            <th>Action</th>
         </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <?php foreach ($links as $link): ?>
+            <?php
+            $expired = new DateTimeImmutable($link['expires_at']) < new DateTimeImmutable();
+            $revoked = $link['revoked_at'] !== null;
+            ?>
+            <tr>
+                <td><?= e((string)$link['id']) ?></td>
+                <td><?= e($link['label']) ?></td>
+                <td><?= e($link['ticket']) ?></td>
+                <td><?= e($link['views'] . ' / ' . $link['max_views']) ?></td>
+                <td><?= e($link['expires_at']) ?></td>
+                <td><?= e($link['created_at']) ?></td>
+                <td><?= e($link['last_opened_at'] ?? '-') ?></td>
+                <td>
+                    <?php if ($revoked): ?>
+                        Révoqué
+                    <?php elseif ($expired): ?>
+                        Expiré
+                    <?php else: ?>
+                        Actif
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if (!$revoked): ?>
+                        <form method="post">
+                            <input type="hidden" name="id" value="<?= e((string)$link['id']) ?>">
+                            <button type="submit">Expirer</button>
+                        </form>
+                    <?php else: ?>
+                        <span class="muted">-</span>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

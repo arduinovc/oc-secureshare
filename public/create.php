@@ -83,177 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>SecureShare - Création d'un lien sécurisé pour partager vos mots de passe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
-
-    <style>
-        body {
-            font-family: system-ui, Arial, sans-serif;
-            max-width: 720px;
-            margin: 40px auto;
-            padding: 0 16px;
-            background: #f7f7f7;
-        }
-
-        .card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        label {
-            display: block;
-            margin-top: 14px;
-            font-weight: 600;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #bbb;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        button {
-            margin-top: 18px;
-            padding: 10px 16px;
-            border: 0;
-            border-radius: 8px;
-            background: #111827;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .error {
-            color: #b91c1c;
-            margin-bottom: 12px;
-        }
-
-        .success {
-            background: #ecfdf5;
-            border: 1px solid #10b981;
-            padding: 14px;
-            border-radius: 8px;
-            margin-top: 20px;
-            word-break: break-all;
-        }
-
-
-        .instructions {
-            background: #eff6ff;
-            border: 1px solid #93c5fd;
-            border-left: 5px solid #2563eb;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            color: #1e3a8a;
-        }
-
-        .instructions h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .instructions ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-container img {
-            max-width: 250px;
-            max-height: 80px;
-            width: auto;
-            height: auto;
-        }
-
-        .install-button {
-            display: block;
-            margin: 30px auto 0;
-            padding: 14px 40px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-
-            box-shadow:
-                0 4px 8px rgba(0,0,0,0.15),
-                0 2px 0 rgba(0,0,0,0.20);
-
-            transition: all 0.15s ease;
-        }
-
-        .install-button:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .install-button:active {
-            transform: translateY(2px);
-            box-shadow:
-                0 2px 4px rgba(0,0,0,0.15);
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .admin-btn {
-            background: #374151;
-            color: white;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .admin-btn:hover {
-            background: #1f2937;
-        }
-
-        .header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="card">
     <div class="header-bar">
         <div class="logo-container">
             <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+            <div class="logo-separator"></div>
             <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
         </div>
         <div class="header-actions">
@@ -345,13 +182,21 @@ const btn = document.getElementById('copyBtn');
 
 if (btn) {
 
-    btn.addEventListener('click', async () => {
+    btn.addEventListener('click', function () {
 
         const input = document.getElementById('secretLink');
 
-        await navigator.clipboard.writeText(input.value);
+        input.select();
+        input.setSelectionRange(0, 99999);
 
-        btn.innerText = '✅ Copié';
+        const success = document.execCommand('copy');
+
+        if (success) {
+            btn.innerText = '✅ Copié';
+        } else {
+            btn.innerText = '❌ Échec';
+        }
+
     });
 
 }

@@ -11,12 +11,10 @@ function getLogoUrl(): string
     return 'assets/logo-default.png';
 }
 
-/*
+
 function t(string $key): string
 {
     global $lang;
 
-/   return $lang[$key] ?? $key;
+    return $lang[$key] ?? $key;
 }
-
-*/

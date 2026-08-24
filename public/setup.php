@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dbName = trim($_POST['db_name']);
     $dbUser = trim($_POST['db_user']);
     $dbPass = $_POST['db_pass'];
+    $defaultLanguage = $_POST['default_language'] ?? 'fr';
 
     try {
 
@@ -111,6 +112,8 @@ return [
     //Default TTL (1 day)
     'default_ttl_minutes' => 1440,
 
+    //Default Language (french)
+    'default_language' => '$defaultLanguage',
 ];
 PHP;
 
@@ -149,139 +152,20 @@ PHP;
     <title>SecureShare - Installation et initialisation de la base de données</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  class="container py-5">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
-    <style>
-        body {
-            font-family: system-ui, Arial, sans-serif;
-            max-width: 720px;
-            margin: 40px auto;
-            padding: 0 16px;
-            background: #f7f7f7;
-        }
-
-        .card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        .secret {
-            font-family: monospace;
-            font-size: 1.2rem;
-            background: #111827;
-            color: #fff;
-            padding: 16px;
-            border-radius: 8px;
-            word-break: break-all;
-        }
-
-        .error {
-            color: #b91c1c;
-        }
-
-        .instructions {
-            background: #eff6ff;
-            border: 1px solid #93c5fd;
-            border-left: 5px solid #2563eb;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            color: #1e3a8a;
-        }
-
-        .instructions h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .instructions ul {
-            margin: 0;
-            padding-left: 18px;
-        }
+    <link rel="stylesheet" href="assets/style.css">
+    <style>       
         .logo-container {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
         .logo-container img {
             max-width: 720px;
             max-height: 300px;
-            width: auto;
-            height: auto;
         }
-
-        .form-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .form-row label {
-            width: 180px;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .form-row input {
-            flex: 1;
-        }
-        .install-button {
-            display: block;
-            margin: 30px auto 0;
-            padding: 14px 40px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-
-            box-shadow:
-                0 4px 8px rgba(0,0,0,0.15),
-                0 2px 0 rgba(0,0,0,0.20);
-
-            transition: all 0.15s ease;
-        }
-
-        .install-button:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .install-button:active {
-            transform: translateY(2px);
-            box-shadow:
-                0 2px 4px rgba(0,0,0,0.15);
-        }
-
-        .error-box {
-            background: #fef2f2;
-            border: 2px solid #dc2626;
-            border-left: 6px solid #dc2626;
-            color: #991b1b;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-weight: 500;
-        }
-
-        .error-box .title {
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-
-        .success-box {
-            background: #ecfdf5;
-            border: 2px solid #10b981;
-            border-left: 6px solid #10b981;
-            color: #065f46;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
     </style>
 </head>
 <body>
@@ -320,7 +204,15 @@ PHP;
         <li>Le logo doit être au format .png.</li>
     </ul>
 </div>
+    <div class="form-row">
+        <label>Langue par défaut</label>
 
+        <select name="default_language">
+            <option value="fr" selected>🇫🇷 Français</option>
+            <option value="en">🇬🇧 English</option>
+        </select>
+    </div>
+    
     <div class="form-row">
         <label>Serveur MySQL</label>
         <input type="text" name="db_host" value="localhost">

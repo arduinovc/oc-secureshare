@@ -20,4 +20,7 @@ return [
 
     // TTL par défaut en minutes
     'default_ttl_minutes' => 1440,
+
+    // Défini la langue par défaut (français)
+    'default_language' => 'fr',
 ];
