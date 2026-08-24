@@ -1,0 +1,6 @@
+# Runtime files
+app/config.php
+app/installed.lock
+
+# Branding
+public/assets/logo.png
