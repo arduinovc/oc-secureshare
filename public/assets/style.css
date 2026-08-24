@@ -188,14 +188,12 @@ button {
 
 .form-row {
     display: flex;
-    align-items: top;
     margin-bottom: 12px;
 }
 
 .form-row label {
     width: 180px;
     font-weight: 600;
-    line-height: 40px;
     flex-shrink: 0;
 }
 
