@@ -1,0 +1,35 @@
+# Désactiver le listing de répertoire
+Options -Indexes
+
+# Bloquer certains fichiers sensibles
+<FilesMatch "^(\.env|composer\.(json|lock)|README\.md|CHANGELOG\.md)$">
+    Require all denied
+</FilesMatch>
+
+# Protection contre le téléchargement de fichiers PHP en source
+<FilesMatch "\.(phps|fla|psd|ini|log|sh|sql|bak|old|dist)$">
+    Require all denied
+</FilesMatch>
+
+# En-têtes de sécurité
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# HTTPS obligatoire
+RewriteEngine On
+
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Empêcher l'accès aux fichiers cachés
+RewriteRule "(^|/)\." - [F,L]
+
+# Autoriser seulement les pages publiques
+RewriteRule ^(index\.php|create\.php|view\.php|setup\.php|admin\.php)$ - [L]
+
+# Bloquer tout le reste
+RewriteRule .* - [F,L]

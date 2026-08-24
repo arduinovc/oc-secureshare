@@ -1,3 +1,5 @@
+# Protection accès au dossier /app
+
 <IfModule mod_authz_core.c>
     Require all denied
 </IfModule>
@@ -5,3 +7,15 @@
 <IfModule !mod_authz_core.c>
     Deny from all
 </IfModule>
+
+# Protection execution des scripts
+
+<FilesMatch "\.(php|phtml|php5|php7|php8)$">
+    Require all denied
+</FilesMatch>
+
+# Protection des fichiers sensibles
+
+<FilesMatch "^(config\.php|installed\.lock|\.env)$">
+    Require all denied
+</FilesMatch>

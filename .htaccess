@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Protection du dossier app
+RewriteEngine On
+
+RewriteRule ^app/ - [F,L]

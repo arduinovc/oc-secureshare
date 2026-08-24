@@ -1,11 +1,11 @@
 <?php
 
-$lockFile = dirname(__DIR__) . '/app/installed.lock';
+$lockFile = __DIR__ . '/app/installed.lock';
 
 if (!file_exists($lockFile)) {
-    header('Location: setup.php');
+    header('Location: public/setup.php');
     exit;
 }
 
-header('Location: create.php');
+header('Location: public/create.php');
 exit;
