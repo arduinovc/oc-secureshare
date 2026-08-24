@@ -38,9 +38,9 @@ Secrets are encrypted before storage and remain inaccessible without the server 
 
 ## Setup
 
-1/ Upload project into your webserver
-2/ Prepare your MySQL/MariaDB credentials (create a user / don't use DB root)
-3/ Browse your website, it will redirect to the setup wizzard (setup.php)
+1/ Upload project into your webserver.  
+2/ Prepare your MySQL/MariaDB credentials (create a user / don't use DB root).  
+3/ Browse your website, it will redirect to the setup wizzard (setup.php).  
 
 Warning :
 If your hosting provider does not allow changing the document root,
