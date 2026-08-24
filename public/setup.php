@@ -205,8 +205,8 @@ PHP;
         }
 
         .logo-container img {
-            max-width: 450px;
-            max-height: 180px;
+            max-width: 720px;
+            max-height: 300px;
             width: auto;
             height: auto;
         }
@@ -287,10 +287,10 @@ PHP;
 <body>
 <div class="card">
 <div class="logo-container">
-    <img src="assets/banner-setup.png" alt="SecureShare" />
+    <img src="assets/logo-defaultfull.png" alt="SecureShare" />
 </div>
 
-<h1>Installation OC-SecureShare</h1>
+<h1>Installation de SecureShare</h1>
 
 <?php if($success): ?>
 

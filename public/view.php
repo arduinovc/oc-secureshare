@@ -187,7 +187,8 @@ if ($token === '' || strlen($token) < 30) {
 <div class="card">
     <div class="header-bar">
         <div class="logo-container">
-            <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
+            <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+            <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
         </div>
     </div>
 

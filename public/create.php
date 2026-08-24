@@ -253,7 +253,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="card">
     <div class="header-bar">
         <div class="logo-container">
-            <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
+            <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+            <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
         </div>
         <div class="header-actions">
             <a href="admin.php" class="admin-btn" target="_blank">Administration</a>

@@ -108,7 +108,8 @@ $links = $stmt->fetchAll();
 </head>
 <body>
 <div class="logo-container">
-    <img src="<?= e(getLogoUrl()) ?>" alt="Logo" class="logo">
+    <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+    <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
 </div>
 <h1>Etat des liens générés</h1>
 

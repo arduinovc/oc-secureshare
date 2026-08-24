@@ -1,4 +1,4 @@
-# OC-SecureShare
+# Office Center - SecureShare
 
 ![SecureShare](/img/logo.png "SecureShareLogo") 
 A lightweight PHP application designed to securely share passwords and sensitive information through one-time links.
