@@ -179,8 +179,9 @@ PHP;
 <?php if($success): ?>
 
 <div class="success-box">
-    ✅ Installation terminée avec succès.
-    Supprimez maintenant setup.php du serveur.
+    ✅ Installation terminée avec succès.<br />
+    Supprimez maintenant setup.php du serveur.<br />
+    Actualisez la page pour créer votre premier mot de passe !
 </div>
 
 <?php else: ?>

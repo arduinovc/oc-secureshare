@@ -84,6 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .secret-input {
+            font-size: 1.4rem;
+            font-family: Consolas, Monaco, monospace;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 <div class="card">
@@ -115,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div> -->
 
         <label for="secret">Mot de passe</label>
-            <textarea id="secret" name="secret" rows="4" required autofocus></textarea>
+            <textarea id="secret" name="secret" rows="4" required autofocus class="secret-input"></textarea>
 
         <div class="form-grid">
 
@@ -192,9 +199,9 @@ if (btn) {
         const success = document.execCommand('copy');
 
         if (success) {
-            btn.innerText = '✅ Copié';
+            btn.innerText = '✅ Lien copié';
         } else {
-            btn.innerText = '❌ Échec';
+            btn.innerText = '❌ Échec de la copie';
         }
 
     });

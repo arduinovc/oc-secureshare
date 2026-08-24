@@ -100,6 +100,14 @@ if ($token === '' || strlen($token) < 30) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="card">
@@ -127,8 +135,71 @@ if ($token === '' || strlen($token) < 30) {
         <p class="error"><?= e($error) ?></p>
         
     <?php elseif ($secret !== null): ?>
-        <div class="secret"><?= e($secret) ?></div>
+        <div id="secretBox" class="secret blurred"><?= e($secret) ?></div>
+        <div class="secret-actions">
+            <div class="button-group">
+                <button type="button" id="showBtn" class="install-button">
+                    👁 Afficher le mot de passe
+                </button>
+                <button type="button" id="copyBtn" class="install-button">
+                    📋 Copier le mot de passe
+                </button>
+            </div>
+        </div>
     <?php endif; ?>
 </div>
+
+<script>
+
+const secretBox = document.getElementById('secretBox');
+
+const showBtn = document.getElementById('showBtn');
+
+showBtn.addEventListener('click', () => {
+
+    secretBox.classList.toggle('blurred');
+
+    if (secretBox.classList.contains('blurred')) {
+
+        showBtn.innerText = '👁 Afficher le mot de passe';
+
+    } else {
+
+        showBtn.innerText = '🙈 Masquer le mot de passe';
+
+    }
+
+});
+
+copyBtn.addEventListener('click', async function () {
+
+    const text = secretBox.innerText;
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        copyBtn.innerText = '✅ Copié';
+
+    } catch (e) {
+
+        const temp = document.createElement('textarea');
+
+        temp.value = text;
+        document.body.appendChild(temp);
+
+        temp.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(temp);
+
+        copyBtn.innerText = '✅ Mot de passe copié';
+    }
+
+});
+
+</script>
+
 </body>
 </html>

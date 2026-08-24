@@ -57,6 +57,12 @@ button {
     word-break: break-all;
 }
 
+.blurred {
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
+}
+
 .success {
     background: #ecfdf5;
     border: 1px solid #10b981;
@@ -107,7 +113,7 @@ button {
     display: block;
     margin: 30px auto 0;
     padding: 14px 40px;
-    background: #2563eb;
+    background: #031D45;
     color: white;
     border: none;
     border-radius: 10px;
@@ -123,7 +129,7 @@ button {
 }
 
 .install-button:hover {
-    background: #2563eb;
+    background: #031D45;
     transform: translateY(-1px);
 }
 
