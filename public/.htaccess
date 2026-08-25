@@ -28,8 +28,20 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Empêcher l'accès aux fichiers cachés
 RewriteRule "(^|/)\." - [F,L]
 
-# Autoriser seulement les pages publiques
-RewriteRule ^(index\.php|create\.php|view\.php|setup\.php|admin\.php)$ - [L]
+# Autoriser les pages publiques
+RewriteRule ^$ - [L]
+RewriteRule ^index\.php$ - [L]
+RewriteRule ^view\.php$ - [L]
+RewriteRule ^setup\.php$ - [L]
+
+# Autoriser les pages d'administration
+RewriteRule ^admin/create\.php$ - [L]
+RewriteRule ^admin/admin\.php$ - [L]
+RewriteRule ^admin/login\.php$ - [L]
+RewriteRule ^admin/logout\.php$ - [L]
+
+# Ressources publiques
+RewriteRule ^assets/ - [L]
 
 # Bloquer tout le reste
 RewriteRule .* - [F,L]
