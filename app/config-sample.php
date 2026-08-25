@@ -29,8 +29,9 @@ return [
     'admin_password_hash' => '$adminPasswordHash',
 
     // Autorise le bypass de l'authentification via LAN
-    'allow_trusted_lan' => true,
+    'allow_trusted' => true,
 
     // Défini l'accès LAN qui ne nécessite pas d'authentification
-    'trusted_lan' => '192.168.1.0/24',
+    'trusted_lan' => '192.168.x.x/24',
+    'trusted_ip' => '84.xx.xx.xx',
 ];

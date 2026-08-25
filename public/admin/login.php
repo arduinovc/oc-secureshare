@@ -10,7 +10,6 @@ require __DIR__ . '/../../app/functions.php';
 $config = require __DIR__ . '/../../app/config.php';
 require __DIR__ . '/../../app/helpers.php';
 
-
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

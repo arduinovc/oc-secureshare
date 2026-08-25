@@ -22,7 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dbPass = $_POST['db_pass'];
     $defaultLanguage = $_POST['default_language'] ?? 'fr';
     $adminPasswordHash = password_hash($_POST['admin_password'],PASSWORD_DEFAULT);
-    $trustedsubnet = $_POST['trusted_subnet'];
+    $trustedSubnet = trim($_POST['trusted_subnet'] ?? '');
+    $trustedIp     = trim($_POST['trusted_ip'] ?? '');
+    $allowTrustedLan = !empty($trustedSubnet) || !empty($trustedIp);
 
     try {
 
@@ -121,10 +123,11 @@ return [
     'admin_password_hash' => '$adminPasswordHash',
 
     //Allow LAN IPs bypass Auth
-    'allow_trusted_lan' => true,
+    'allow_trusted' => $allowTrustedLan,
 
     //Define subnet to bypass Auth
-    'trusted_lan' => '$trustedsubnet',
+    'trusted_lan' => '$trustedSubnet',
+    'trusted_ip' => '<?= addslashes($trustedIp) ?>',
 ];
 PHP;
 
@@ -206,17 +209,18 @@ PHP;
 
 
 <form method="post" enctype="multipart/form-data" autocomplete="off">
-<div class="instructions">
-    <h3>Informations</h3>
-
-    <ul>
-        <li>Vous devez disposer de PHP8.1+.</li>
-        <li>Vous devez disposer des identifiants de votre base de données MySQL ou MariaDB.</li>
-        <li>N'exposez jamais le fichier app/config.php qui contient la clé de chiffrement.</li>
-        <li>Le logo doit être au format .png.</li>
-        <li>Sous-réseau de confiance : notation CIDR sinon sera ignoré.</li>
-    </ul>
-</div>
+    <div class="instructions">
+        <h3>Informations</h3>
+        <ul>
+            <li>Vous devez disposer de PHP8.1+.</li>
+            <li>Vous devez disposer des identifiants de votre base de données MySQL ou MariaDB.</li>
+            <li>N'exposez jamais le fichier app/config.php qui contient la clé de chiffrement.</li>
+            <li>Le logo doit être au format .png.</li>
+            <li>La zone de confiance défini un accès qui bypass l'authentification.</li>
+            <li>Sous-réseau de confiance : notation CIDR sinon sera ignoré.</li>
+            <li>IP de confiance : adresse IP d'un site externe par exemple.</li>
+        </ul>
+    </div>
     <div class="form-row">
         <label>Langue par défaut</label>
 
@@ -233,17 +237,17 @@ PHP;
 
     <div class="form-row">
         <label>Base</label>
-        <input type="text" name="db_name">
+        <input type="text" name="db_name" placeholder="secrets_db">
     </div>
 
     <div class="form-row">
         <label>Utilisateur</label>
-        <input type="text" name="db_user">
+        <input type="text" name="db_user" placeholder="secrets_user">
     </div>
 
     <div class="form-row">
         <label>Mot de passe</label>
-        <input type="password" name="db_pass">
+        <input type="password" name="db_pass" placeholder="secrets_password">
     </div>
 
     <div class="form-row">
@@ -253,18 +257,36 @@ PHP;
 
     <div class="form-row">
         <label>Mot de passe administrateur</label>
-        <input type="password" name="admin_password" required>
+        <input type="password" name="admin_password" required placeholder="Mot de passe requis">
     </div>
 
     <div class="form-row">
-        <label>Sous-réseau de confiance</label>
+        <label for="enable_trusted_ip">Zone de confiance</label>
+        <select id="enable_trusted_ip" name="enable_trusted_ip">
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
+        </select>
+    </div>
 
-        <input
-            type="text"
-            name="trusted_subnet"
-            value="192.168.1.0/24"
-            placeholder="192.168.1.0/24"
-        >
+    <div id="trustedIpContainer" style="display:none;">
+        <div class="form-row">
+            <label>Sous-réseau de confiance</label>
+
+            <input
+                type="text"
+                name="trusted_subnet"
+                placeholder="192.168.1.0/32"
+            >
+        </div>
+
+        <div class="form-row">
+            <label>IP de confiance</label>
+            <input
+                type="text"
+                name="trusted_ip"
+                placeholder="0.0.0.0">
+        </div>
+
     </div>
 
     <button type="submit" class="install-button">
@@ -274,6 +296,13 @@ PHP;
 
 <?php endif; ?>
 </div>
+
+<script>
+document.getElementById('enable_trusted_ip').addEventListener('change', function () {
+    document.getElementById('trustedIpContainer').style.display =
+        this.value === '1' ? 'block' : 'none';
+});
+</script>
 
 </body>
 </html>
