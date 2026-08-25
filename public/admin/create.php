@@ -4,12 +4,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require __DIR__ . '/../app/functions.php';
-$config = require __DIR__ . '/../app/config.php';
-require __DIR__ . '/../app/db.php';
-require __DIR__ . '/../app/crypto.php';
-require __DIR__ . '/../app/helpers.php';
-
+require __DIR__ . '/../../app/functions.php';
+$config = require __DIR__ . '/../../app/config.php';
+requireAuth($config);
+require __DIR__ . '/../../app/db.php';
+require __DIR__ . '/../../app/crypto.php';
+require __DIR__ . '/../../app/helpers.php';
 
 $generatedUrl = null;
 $error = null;
@@ -82,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>SecureShare - Création d'un lien sécurisé pour partager vos mots de passe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="../assets/style.css">
     <style>
         .secret-input {
             font-size: 1.4rem;
@@ -96,9 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="card">
     <div class="header-bar">
         <div class="logo-container">
-            <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+            <img src="../<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
             <div class="logo-separator"></div>
-            <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
+            <img src="../assets/logo-secureshare.png" alt="Logo" class="logo">
         </div>
         <div class="header-actions">
             <a href="admin.php" class="admin-btn" target="_blank">Administration</a>

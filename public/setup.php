@@ -6,7 +6,7 @@ $configFile = __DIR__ . '/../app/config.php';
 
 if (file_exists($lockFile)) {
     //die('Application déjà installée.');
-    header('Location: create.php');
+    header('Location: admin/create.php');
     exit;
 }
 
@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dbUser = trim($_POST['db_user']);
     $dbPass = $_POST['db_pass'];
     $defaultLanguage = $_POST['default_language'] ?? 'fr';
+    $adminPasswordHash = password_hash($_POST['admin_password'],PASSWORD_DEFAULT);
+    $trustedsubnet = $_POST['trusted_subnet'];
 
     try {
 
@@ -114,6 +116,15 @@ return [
 
     //Default Language (french)
     'default_language' => '$defaultLanguage',
+
+    //Administrator password
+    'admin_password_hash' => '$adminPasswordHash',
+
+    //Allow LAN IPs bypass Auth
+    'allow_trusted_lan' => true,
+
+    //Define subnet to bypass Auth
+    'trusted_lan' => '$trustedsubnet',
 ];
 PHP;
 
@@ -203,6 +214,7 @@ PHP;
         <li>Vous devez disposer des identifiants de votre base de données MySQL ou MariaDB.</li>
         <li>N'exposez jamais le fichier app/config.php qui contient la clé de chiffrement.</li>
         <li>Le logo doit être au format .png.</li>
+        <li>Sous-réseau de confiance : notation CIDR sinon sera ignoré.</li>
     </ul>
 </div>
     <div class="form-row">
@@ -239,10 +251,25 @@ PHP;
         <input type="file" id="logo" name="logo" accept=".png">
     </div>
 
+    <div class="form-row">
+        <label>Mot de passe administrateur</label>
+        <input type="password" name="admin_password" required>
+    </div>
+
+    <div class="form-row">
+        <label>Sous-réseau de confiance</label>
+
+        <input
+            type="text"
+            name="trusted_subnet"
+            value="192.168.1.0/24"
+            placeholder="192.168.1.0/24"
+        >
+    </div>
+
     <button type="submit" class="install-button">
         Installer
     </button>
-
 </form>
 
 <?php endif; ?>

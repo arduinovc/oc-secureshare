@@ -7,5 +7,5 @@ if (!file_exists($lockFile)) {
     exit;
 }
 
-header('Location: create.php');
+header('Location: admin/create.php');
 exit;

@@ -4,10 +4,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$config = require __DIR__ . '/../app/config.php';
-require __DIR__ . '/../app/db.php';
-require __DIR__ . '/../app/helpers.php';
-require __DIR__ . '/../app/functions.php';
+require __DIR__ . '/../../app/functions.php';
+$config = require __DIR__ . '/../../app/config.php';
+requireAuth($config);
+require __DIR__ . '/../../app/db.php';
+require __DIR__ . '/../../app/helpers.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int)($_POST['id'] ?? 0);
@@ -54,8 +56,8 @@ $links = $stmt->fetchAll();
     <meta charset="utf-8">
     <title>SecureShare - Affichage de l'état des tokens.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="assets/favicon.ico">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" hrefpng" sizes="16xcon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="../assets/style.css">
     <style>
         body {
             max-width: 1100px;
@@ -72,11 +74,19 @@ $links = $stmt->fetchAll();
 </head>
 <body>
 <div class="card">
-    <div class="logo-container">
-        <img src="<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
-        <div class="logo-separator"></div>
-        <img src="assets/logo-secureshare.png" alt="Logo" class="logo">
+
+
+    <div class="header-bar">
+        <div class="logo-container">
+            <img src="../<?= e(getLogoUrl()) ?>" alt="Branding" class="logo">
+            <div class="logo-separator"></div>
+            <img src="../assets/logo-secureshare.png" alt="Logo" class="logo">
+        </div>
+        <div class="header-actions">
+            <a href="logout.php" class="admin-btn" target="_blank">Deconnexion</a>
+        </div>
     </div>
+   
     <h1>Etat des liens générés</h1>
 
     <table>

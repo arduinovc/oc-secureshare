@@ -23,4 +23,14 @@ return [
 
     // Défini la langue par défaut (français)
     'default_language' => 'fr',
+
+    // Défini le mot de passe administrateur
+    // php -r "echo password_hash();"
+    'admin_password_hash' => '$adminPasswordHash',
+
+    // Autorise le bypass de l'authentification via LAN
+    'allow_trusted_lan' => true,
+
+    // Défini l'accès LAN qui ne nécessite pas d'authentification
+    'trusted_lan' => '192.168.1.0/24',
 ];
