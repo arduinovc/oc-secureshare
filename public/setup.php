@@ -88,10 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $logSalt = bin2hex(random_bytes(32));
 
-        $site_url =
-            (isset($_SERVER['HTTPS']) ? 'https' : 'http') .
-            '://' .
-            $_SERVER['HTTP_HOST'];
+        $site_url = rtrim(
+            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
+            . '://'
+            . $_SERVER['HTTP_HOST']
+            . dirname($_SERVER['SCRIPT_NAME']),
+            '/'
+        );
 
         $config = <<<PHP
 <?php
