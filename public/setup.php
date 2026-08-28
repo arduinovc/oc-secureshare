@@ -127,7 +127,7 @@ return [
 
     //Define subnet to bypass Auth
     'trusted_lan' => '$trustedSubnet',
-    'trusted_ip' => '<?= addslashes($trustedIp) ?>',
+    'trusted_ip' => '$trustedIp',
 ];
 PHP;
 
